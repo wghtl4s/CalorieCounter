@@ -1,0 +1,61 @@
+{
+  "meals": [],
+  "water": {
+    "id": "1778796679607",
+    "targetVolume": 2000,
+    "currentVolume": 2350,
+    "date": "2026-05-14T22:11:19.607Z",
+    "records": [
+      {
+        "amount": 150,
+        "time": "01:11"
+      },
+      {
+        "amount": 200,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      },
+      {
+        "amount": 250,
+        "time": "01:11"
+      }
+    ]
+  },
+  "user": {
+    "id": "1778796672973",
+    "name": "Настя",
+    "gender": "female",
+    "age": 19,
+    "weight": 64,
+    "height": 170,
+    "activityLevel": 1.55,
+    "goal": "maintain"
+  }
+}
