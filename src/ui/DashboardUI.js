@@ -82,13 +82,17 @@ export default class DashboardUI {
 
         const listHtml = meals.map(meal => {
             const s = meal.getSummary();
+            const breakdown = meal.getCalorieBreakdown();
             return `
                 <li class="meal-item" data-id="${meal.id}">
                     <div class="meal-item-main">
                         <span class="meal-time">${s.time}</span>
                         <div class="meal-details">
                             <span class="meal-name">${s.name} <small>(${s.weight}г)</small></span>
-                            <span class="meal-macros-tiny">Б: ${s.proteins}г · Ж: ${s.fats}г · В: ${s.carbs}г</span>
+                            <span class="meal-macros-tiny">
+                                Б: ${s.proteins}г · Ж: ${s.fats}г · В: ${s.carbs}г
+                                <span class="cal-breakdown">(Б:${breakdown.fromProteins} + Ж:${breakdown.fromFats} + В:${breakdown.fromCarbs} ккал)</span>
+                            </span>
                         </div>
                     </div>
                     <div class="meal-item-right">
@@ -107,7 +111,7 @@ export default class DashboardUI {
         `;
     }
 
-    renderDailySummary(meals) {
+    renderDailySummary(meals, mostCaloric) {
         if (!meals || meals.length === 0) return '';
 
         const totalWeight = meals.reduce((s, m) => s + m.weightInGrams, 0);
@@ -137,6 +141,12 @@ export default class DashboardUI {
                     <span class="summary-value">${highCalMeals.length}</span>
                     <span class="summary-label">висококалорійних</span>
                 </div>
+                
+                 ${mostCaloric ? `
+                 <div class="summary-item" style="grid-column: span 2">
+                    <span class="summary-value" style="font-size:14px">${mostCaloric.product.name}</span>
+                    <span class="summary-label">найкалорійніший продукт (${mostCaloric.totalCalories.toFixed(0)} ккал)</span>
+                 </div>` : ''}
             </div>
         </div>
     `;
@@ -176,11 +186,15 @@ export default class DashboardUI {
             return;
         }
 
+        const mostCaloric = meals.length > 0
+            ? meals.reduce((max, m) => m.totalCalories > max.totalCalories ? m : max)
+            : null;
+
         container.innerHTML =
             this.renderCalorieProgress(currentCalories, targetCalories) +
             this.renderMacroProgress(currentMacros, targetMacros) +
             this.renderWeeklyChart(weeklyData) +
-            this.renderDailySummary(meals) +
+            this.renderDailySummary(meals, mostCaloric) +
             this.renderMealList(meals, onDeleteCallback);
 
         container.querySelectorAll('.btn-delete').forEach(btn => {
