@@ -49,7 +49,9 @@ export default class WaterRepository {
 
         if (!response.ok) throw new Error('Не вдалося скинути дані про воду.');
 
-        this._waterLog = new WaterLog(Date.now().toString(), 2000);
+        const prevTarget = this._waterLog?.targetVolume || 2000;
+        this._waterLog = new WaterLog(Date.now().toString(), prevTarget);
+
         return this._waterLog;
     }
 
