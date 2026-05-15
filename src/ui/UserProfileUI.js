@@ -1,3 +1,4 @@
+import UserValidator from '../validators/UserValidator.js';
 export default class UserProfileUI {
     constructor(containerId) {
         this.containerId = containerId;
@@ -90,6 +91,7 @@ export default class UserProfileUI {
                 <div class="profile-info">
                     <h3>${user.name}</h3>
                     <span class="profile-meta">${user.age} р. · ${user.weight} кг · ${user.height} см</span>
+                    <span class="profile-meta">${user.getActivityLabel()}</span>
                     <span class="goal-badge goal-${user.goal}">${user.getGoalLabel()}</span>
                 </div>
             </div>
@@ -136,7 +138,7 @@ export default class UserProfileUI {
     `;
     }
 
-    init(containerId, existingUser, onSaveCallback, onEditCallback) {
+    init(containerId, existingUser, onSaveCallback) {
         const container = document.getElementById(containerId);
         if (!container) {
             console.error(`[UserProfileUI] Контейнер '${containerId}' не знайдено.`);
@@ -184,6 +186,17 @@ export default class UserProfileUI {
                 activityLevel: parseFloat(document.getElementById('userActivity').value),
                 goal:          document.querySelector('input[name="userGoal"]:checked')?.value || 'maintain'
             };
+
+            if (!UserValidator.validateActivityLevel(formData.activityLevel)) {
+                errorBox.textContent = 'Невірний рівень активності.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            if (!UserValidator.validateGoal(formData.goal)) {
+                errorBox.textContent = 'Невірна ціль.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
 
             try {
                 onSaveCallback(formData);
