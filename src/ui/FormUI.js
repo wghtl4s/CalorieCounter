@@ -69,13 +69,12 @@ export default class FormUI {
                 carbs:     parseFloat(document.getElementById('productCarbs').value)    || 0
             };
 
-            try {
-                onSubmitCallback(formData);
+            onSubmitCallback(formData).then(() => {
                 this._resetForm();
-            } catch (err) {
+            }).catch(err => {
                 errorBox.textContent = err.message;
                 errorBox.classList.remove('hidden');
-            }
+            });
         });
 
         console.log('[FormUI] Форма прийому їжі ініціалізована.');
