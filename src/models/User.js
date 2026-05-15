@@ -118,4 +118,13 @@ export default class User {
             ? { diff, label: `${diff} кг до ідеальної ваги` }
             : { diff, label: `${Math.abs(diff)} кг нижче ідеальної ваги` };
     }
+
+    updateGoal(newGoal) {
+        this.goal = newGoal;
+        this._goalContext.setStrategy(
+            newGoal === 'lose'  ? new WeightLossStrategy()  :
+                newGoal === 'gain'  ? new WeightGainStrategy()  :
+                    new MaintainWeightStrategy()
+        );
+    }
 }
