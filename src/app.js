@@ -156,8 +156,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function handleSaveProfile(formData) {
+        const existingId = userRepo.getCurrent()?.id || Date.now().toString();
         const user = new User(
-            Date.now().toString(),
+            existingId,
             formData.name, formData.gender, formData.age,
             formData.weight, formData.height, formData.activityLevel, formData.goal
         );
