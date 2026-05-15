@@ -1,5 +1,4 @@
-import Product from '../models/Product.js';
-import MealEntry from '../models/MealEntry.js';
+import MealFactory from '../patterns/Factory.js';
 
 const API_BASE = 'http://localhost:5000/api';
 
@@ -13,12 +12,7 @@ export default class MealRepository {
         if (!response.ok) throw new Error('Не вдалося завантажити дані.');
 
         const data = await response.json();
-
-        this._meals = (data.meals || []).map(item => {
-            const p = item.product;
-            const product = new Product(p.id, p.name, p.caloriesPer100g, p.proteins, p.fats, p.carbs);
-            return new MealEntry(item.id, product, item.weightInGrams, new Date(item.date));
-        });
+        this._meals = (data.meals || []).map(item => MealFactory.createMealEntryFromRaw(item));
 
         return [...this._meals];
     }
