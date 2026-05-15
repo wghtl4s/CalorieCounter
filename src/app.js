@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function refreshWater() {
         const log = waterRepo.getCurrent();
         if (log) {
-            waterUI.update('water-container', log, handleAddWater, handleUpdateWaterTarget);
+            waterUI.update('water-container', log, handleAddWater, handleUpdateWaterTarget, handleResetWater);
         }
     }
 
@@ -84,6 +84,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             userRepo.getCurrent(),
             handleSaveProfile
         );
+
+        const profileTab = document.querySelector('[data-tab="profile"]');
+        if (profileTab && !userRepo.hasUser()) {
+            profileTab.classList.add('nav-tab-hint');
+        }
     }
 
     const tabPanels = ['dashboard-panel', 'food-panel', 'water-panel', 'profile-panel'];
@@ -136,6 +141,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             refreshWater();
         } catch (err) {
             alert(`Помилка: ${err.message}`);
+        }
+    }
+
+    async function handleResetWater() {
+        if (confirm('Скинути водний журнал за сьогодні?')) {
+            try {
+                await waterRepo.resetToday();
+                refreshWater();
+            } catch (err) {
+                alert(`Помилка: ${err.message}`);
+            }
         }
     }
 
