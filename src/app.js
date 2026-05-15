@@ -2,8 +2,7 @@ import MealRepository    from './repositories/MealRepository.js';
 import UserRepository    from './repositories/UserRepository.js';
 import WaterRepository   from './repositories/WaterRepository.js';
 import Observer          from './patterns/Observer.js';
-import Product           from './models/Product.js';
-import MealEntry         from './models/MealEntry.js';
+import MealFactory       from './patterns/Factory.js';
 import User              from './models/User.js';
 import DashboardUI       from './ui/DashboardUI.js';
 import FormUI            from './ui/FormUI.js';
@@ -152,8 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     formUI.initMealForm(async (formData) => {
-        const product  = new Product(Date.now().toString(), formData.name, formData.calories, formData.proteins, formData.fats, formData.carbs);
-        const mealEntry = new MealEntry(Date.now().toString(), product, formData.weight);
+        const mealEntry = MealFactory.createMealEntry(formData);
 
         await mealRepo.save(mealEntry);
         appObserver.notify('mealAdded', mealEntry);
