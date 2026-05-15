@@ -142,7 +142,7 @@ const mealEntry = MealFactory.createMealEntryFromRaw(rawData);
 ### Law of Demeter
 UI-класи звертаються тільки до методів безпосередньо переданих об'єктів. Наприклад, [`DashboardUI`](src/ui/DashboardUI.js) отримує готові дані (`meals`, `weeklyData`) — він не звертається до `mealRepo` напряму.
 
-## 🔧 Refactoring Techniques
+## Refactoring Techniques
 
 ### Extract Class
 `DataManager` з початкової версії був одним класом що робив все — завантажував, зберігав, тримав стан для всіх типів даних. Розбито на три окремі класи:
