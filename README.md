@@ -33,6 +33,7 @@ http://localhost:5000
 > Проєкт використовує ES Modules, тому потрібен HTTP-сервер. Відкриття `index.html` через `file://` не працює.
 
 ## Структура проєкту
+```
 calorie-tracker/
 ├── data.json                        # База даних (їжа, вода, профіль)
 ├── package.json
@@ -66,6 +67,7 @@ calorie-tracker/
 ├── ProductValidator.js
 ├── UserValidator.js
 └── WaterValidator.js
+```
 
 ## Design Patterns
 
