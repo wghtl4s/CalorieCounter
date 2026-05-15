@@ -10,6 +10,8 @@ import WaterUI           from './ui/WaterUI.js';
 import UserProfileUI     from './ui/UserProfileUI.js';
 import NavigationUI      from './ui/NavigationUI.js';
 
+const tabPanels = ['dashboard-panel', 'food-panel', 'water-panel', 'profile-panel'];
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('[App] Ініціалізація додатку...');
 
@@ -96,8 +98,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileTab.classList.add('nav-tab-hint');
         }
     }
-
-    const tabPanels = ['dashboard-panel', 'food-panel', 'water-panel', 'profile-panel'];
 
     function showTab(tabId) {
         tabPanels.forEach(panelId => {
