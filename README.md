@@ -32,7 +32,7 @@ http://localhost:5000
 
 > Проєкт використовує ES Modules, тому потрібен HTTP-сервер. Відкриття `index.html` через `file://` не працює.
 
-## 🗂️ Структура проєкту
+## Структура проєкту
 calorie-tracker/
 ├── data.json                        # База даних (їжа, вода, профіль)
 ├── package.json
@@ -67,7 +67,7 @@ calorie-tracker/
 ├── UserValidator.js
 └── WaterValidator.js
 
-## 🧩 Design Patterns
+## Design Patterns
 
 ### Observer — [`src/patterns/Observer.js`](src/patterns/Observer.js)
 
@@ -108,7 +108,7 @@ const mealEntry = MealFactory.createMealEntry(formData);
 const mealEntry = MealFactory.createMealEntryFromRaw(rawData);
 ```
 
-## 🏛️ Programming Principles
+## Programming Principles
 
 ### SRP — Single Responsibility Principle
 Кожен клас має одну зону відповідальності:
