@@ -61,6 +61,8 @@ export default class WaterUI {
                     <input type="number" id="waterTarget" value="${waterLog.targetVolume}" min="100" max="10000">
                     <button class="btn-secondary" id="saveWaterTarget">Зберегти</button>
                 </div>
+                
+                <button class="btn-danger-outline" id="resetWaterBtn">Скинути журнал</button>
 
                 <ul class="water-records">
                     <strong>Журнал:</strong>
@@ -70,7 +72,7 @@ export default class WaterUI {
         `;
     }
 
-    update(containerId, waterLog, onAddWater, onUpdateTarget) {
+    update(containerId, waterLog, onAddWater, onUpdateTarget, onReset) {
         const container = document.getElementById(containerId);
         if (!container) {
             console.error(`[WaterUI] Контейнер '${containerId}' не знайдено.`);
@@ -79,7 +81,6 @@ export default class WaterUI {
 
         container.innerHTML = this.render(waterLog);
 
-        // Quick-add buttons
         container.querySelectorAll('.btn-water').forEach(btn => {
             btn.addEventListener('click', () => {
                 const amount = parseInt(btn.dataset.amount);
@@ -87,7 +88,6 @@ export default class WaterUI {
             });
         });
 
-        // Custom amount
         document.getElementById('addCustomWater').addEventListener('click', () => {
             const input = document.getElementById('customWaterAmount');
             const amount = parseInt(input.value);
@@ -97,10 +97,14 @@ export default class WaterUI {
             }
         });
 
-        // Update target
         document.getElementById('saveWaterTarget').addEventListener('click', () => {
             const target = parseInt(document.getElementById('waterTarget').value);
             if (target > 0) onUpdateTarget(target);
         });
+
+        const resetBtn = document.getElementById('resetWaterBtn');
+        if (resetBtn && onReset) {
+            resetBtn.addEventListener('click', onReset);
+        }
     }
 }

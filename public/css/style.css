@@ -310,3 +310,31 @@ input:focus, select:focus {
 }
 .week-bar.today { background: var(--primary); }
 .week-bar-label { font-size: 10px; color: var(--text-muted); margin-top: 4px; text-align: center; }
+
+.btn-danger-outline {
+    background: transparent;
+    color: var(--danger);
+    border: 1.5px solid var(--danger);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+.btn-danger-outline:hover { background: var(--danger); color: white; }
+
+.nav-tab-hint { position: relative; }
+.nav-tab-hint::after {
+    content: '!';
+    position: absolute;
+    top: 8px; right: 12px;
+    background: var(--warning);
+    color: white;
+    border-radius: 50%;
+    width: 14px; height: 14px;
+    font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+}
