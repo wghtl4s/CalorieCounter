@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function refreshDashboard() {
         const today   = new Date();
-        const meals   = mealRepo.getByDate(today);
+        const meals = mealRepo.getTodayMeals();
         const total   = mealRepo.getTotalCaloriesForDate(today);
         const macros  = mealRepo.getTotalMacrosForDate(today);
         const weekly  = mealRepo.getWeeklyCalories();
@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('[App] Найкалорійніший продукт за весь час:', topMeal?.product?.name || 'немає');
 
         const searchTest = mealRepo.searchByName('тест');
+        console.log(`[App] Тестовий пошук знайшов: ${searchTest.length} страв`);
 
         dashboard.updateDashboard(
             total,
@@ -120,9 +121,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     appObserver.subscribe('mealDeleted', () => { if (!isTabHidden('dashboard')) refreshDashboard(); });
     appObserver.subscribe('waterAdded',  () => { if (!isTabHidden('water'))     refreshWater(); });
     appObserver.subscribe('userSaved',   () => { refreshDashboard(); });
-    function onWaterTabLeave() {
-        appObserver.unsubscribe('waterAdded', refreshWater);
-    }
 
     function isTabHidden(tabId) {
         const panel = document.getElementById(`${tabId}-panel`);
